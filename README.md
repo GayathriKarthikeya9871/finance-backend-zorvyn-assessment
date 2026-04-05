@@ -1,17 +1,17 @@
-Finance Data Processing and Access Control Backend
+# Finance Data Processing and Access Control Backend
 
-Overview
+## Overview
 This is a secure, role-based backend API for a finance dashboard system. It provides user access control, financial record management, and dashboard analytics capabilities. 
 
 The architecture follows a strict Model-View-Controller (MVC) pattern to ensure separation of concerns, scalability, and clean code organization.
 
-Tech Stack
-Runtime: Node.js
-Framework: Express.js
-Database: SQLite3 (In-file relational database)
-Development Tools: Nodemon, CORS
+## Tech Stack
+* **Runtime:** Node.js
+* **Framework:** Express.js
+* **Database:** SQLite3 (In-file relational database)
+* **Development Tools:** Nodemon, CORS
 
-Project Architecture
+## Project Architecture
 The project is structured professionally for maintainability:
 - `/src/config` - Database connection and schema initialization
 - `/src/controllers` - Core business logic and data processing
@@ -19,31 +19,31 @@ The project is structured professionally for maintainability:
 - `/src/routes` - API endpoint definitions
 - `/src/server.js` - Main application entry point
 
-Setup and Installation
+## Setup and Installation
 
-1. Install Dependencies
+1. **Install Dependencies**
    Run the following command to install required packages:
    npm install
 
-2. Start the Development Server
+2. **Start the Development Server**
    Run the application using nodemon:
    npm run dev
 
    The server will start on `http://localhost:3000`. The SQLite database file (`database.sqlite`) will automatically generate in the root directory upon starting.
 
-Access Control & Roles
+## Access Control & Roles
 The system features middleware-based access control. Authentication is handled via the `x-user-id` header for demonstration purposes.
 
-Admin: Can create, update, delete records, and view all data/summaries.
-Analyst: Can view all records, apply filters, and access summaries, but cannot modify data.
-Viewer: Read-only access to basic non-sensitive data (blocked from core financial routes in this implementation).
+* **Admin:** Can create, update, delete records, and view all data/summaries.
+* **Analyst:** Can view all records, apply filters, and access summaries, but cannot modify data.
+* **Viewer:** Read-only access to basic non-sensitive data (blocked from core financial routes in this implementation).
 
-Default Test Users (Pass as `x-user-id` header):
+**Default Test Users (Pass as `x-user-id` header):**
 * `admin_user`
 * `analyst_user`
 * `viewer_user`
 
-API Endpoints
+## API Endpoints
 
 ### 1. Create a Financial Record
 * **URL:** `/api/records`
@@ -82,7 +82,7 @@ API Endpoints
 * **Access:** Admin, Analyst
 * **Returns:** Total income, total expenses, and net balance aggregated at the database level.
 
-Key Design Decisions & Assumptions
+## Key Design Decisions & Assumptions
 1. **SQLite over In-Memory:** Chosen to demonstrate actual relational database modeling, foreign key constraints (linking records to the users who created them), and SQL aggregation functions.
 2. **Simplified Auth:** To maintain focus on API structure without forcing the evaluator to handle JWT token generation, authentication is simplified to a custom header check linked to a persistent database user.
 3. **Summary Aggregation:** The dashboard summary performs math via SQL (`SUM` and `GROUP BY`) rather than in JavaScript, ensuring high performance as the dataset scales.
